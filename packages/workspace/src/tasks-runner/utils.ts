@@ -3,8 +3,8 @@ import {
   ProjectGraph,
   ProjectGraphNode,
   TargetDependencyConfig,
+  Task,
 } from '@nrwl/devkit';
-import { Task } from './tasks-runner';
 import { flatten } from 'flat';
 import { output } from '../utilities/output';
 

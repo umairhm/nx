@@ -1,4 +1,3 @@
-import { Task } from '../../tasks-runner/tasks-runner';
 import { workspaceFileName } from '../file-utils';
 import { exec } from 'child_process';
 import { defaultFileHasher, FileHasher } from './file-hasher';
@@ -9,6 +8,7 @@ import * as stripJsonComments from 'strip-json-comments';
 import {
   NxJsonConfiguration,
   ProjectGraph,
+  Task,
   WorkspaceJsonConfiguration,
 } from '@nrwl/devkit';
 import { readJsonFile } from '../../utilities/fileutils';

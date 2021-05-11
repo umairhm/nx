@@ -1,8 +1,22 @@
 import { readJson, Tree } from '@nrwl/devkit';
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { overrideCollectionResolutionForTesting } from '@nrwl/devkit/ngcli-adapter';
+import {
+  overrideCollectionResolutionForTesting,
+  wrapAngularDevkitSchematic,
+} from '@nrwl/devkit/ngcli-adapter';
 import { presetGenerator } from './preset';
 import * as path from 'path';
+
+const gen = wrapAngularDevkitSchematic('@nrwl/angular', 'application');
+describe('test', () => {
+  it('should', async () => {
+    const tree = createTreeWithEmptyWorkspace();
+
+    await gen(tree, {
+      name: 'hi',
+    });
+  });
+});
 
 describe('preset', () => {
   let tree: Tree;
