@@ -164,6 +164,15 @@ export class Cache {
     }
   }
 
+  shouldCacheTask(outputPath: string | null, code: number) {
+    // TODO: vsavkin make caching failures the default in Nx 12.1
+    if (process.env.NX_CACHE_FAILURES == 'true') {
+      return outputPath;
+    } else {
+      return outputPath && code === 0;
+    }
+  }
+
   removeRecordedOutputsHashes(outputs: string[]): void {
     outputs.forEach((output) => {
       const hashFile = this.getFileNameWithLatestRecordedHashForOutput(output);

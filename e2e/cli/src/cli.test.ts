@@ -16,7 +16,7 @@ import {
 describe('Cli', () => {
   afterEach(() => killPorts());
 
-  it('should execute long running tasks', () => {
+  it('tttshould execute long running tasks', () => {
     newProject();
     const myapp = uniq('myapp');
     runCLI(`generate @nrwl/web:app ${myapp}`);

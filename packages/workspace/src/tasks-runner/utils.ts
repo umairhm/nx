@@ -4,6 +4,7 @@ import {
   ProjectGraphNode,
   TargetDependencyConfig,
   Task,
+  TaskGraph,
 } from '@nrwl/devkit';
 import { flatten } from 'flat';
 import { output } from '../utilities/output';
@@ -198,4 +199,35 @@ function interpolateOutputs(template: string, data: any): string {
 
     return value;
   });
+}
+
+export function getCommandArgs(task: Task) {
+  const args: string[] = unparse(task.overrides || {});
+
+  const config = task.target.configuration
+    ? `:${task.target.configuration}`
+    : '';
+
+  return [
+    'run',
+    `${task.target.project}:${task.target.target}${config}`,
+    ...args,
+  ];
+}
+
+export function calculateReverseDeps(
+  taskGraph: TaskGraph
+): Record<string, string[]> {
+  const reverseTaskDeps: Record<string, string[]> = {};
+  Object.keys(taskGraph.tasks).forEach((t) => {
+    reverseTaskDeps[t] = [];
+  });
+
+  Object.keys(taskGraph.dependencies).forEach((taskId) => {
+    taskGraph.dependencies[taskId].forEach((d) => {
+      reverseTaskDeps[d].push(taskId);
+    });
+  });
+
+  return reverseTaskDeps;
 }
